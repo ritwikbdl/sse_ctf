@@ -1,0 +1,6 @@
+spec:
+  template:
+    spec:
+      containers:
+        - name: dumped-challenge
+          image: docker.io/cookie303/dumped:1

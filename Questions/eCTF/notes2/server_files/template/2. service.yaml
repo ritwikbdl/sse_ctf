@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes2-service
+  labels:
+    app: notes2
+spec:
+  selector:
+    app: notes2
+  type: ClusterIP
+  ports:
+    - port: 5656
+      targetPort: 1024

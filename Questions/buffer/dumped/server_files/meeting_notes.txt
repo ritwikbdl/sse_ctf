@@ -1,0 +1,8 @@
+Date: 08/11/22
+waldo is leaking sensitive data to outsiders.
+We have decided to suspend his accounts.
+
+We have informed our system admin to delete his accounts from all our systems.
+ctf user will remind system admin if not done by 10th April.
+
+                                                                ~KingPin

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: got2win-service
+  labels:
+    app: got2win
+spec:
+  selector:
+    app: got2win
+  type: ClusterIP
+  ports:
+    - port: 5555
+      targetPort: 1024

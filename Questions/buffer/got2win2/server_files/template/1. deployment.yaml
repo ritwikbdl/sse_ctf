@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: got2win
+  labels:
+    app: got2win
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: got2win
+  template:
+    metadata:
+      labels:
+        app: got2win
+    spec:
+      containers:
+        - name: got2win-challenge
+          image: docker.io/cookie303/got2win:6 #docker.io/cookie303/a 5:2
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: got2win-port
+          resources:
+            requests:
+              cpu: 100m

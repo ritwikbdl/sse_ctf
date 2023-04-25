@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pb
+  labels:
+    app: pb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pb
+  template:
+    metadata:
+      labels:
+        app: pb
+    spec:
+      containers:
+        - name: pb-challenge
+          image: docker.io/cookie303/pb:latest #docker.io/cookie303/a 5:2
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: false
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: pb-port
+          resources:
+            requests:
+              cpu: 100m

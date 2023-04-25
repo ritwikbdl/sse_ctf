@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: useme
+  labels:
+    app: useme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: useme
+  template:
+    metadata:
+      labels:
+        app: useme
+    spec:
+      containers:
+        - name: useme-challenge
+          image: docker.io/cookie303/useme:latest
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 5555
+              protocol: TCP
+              name: useme-port
+          resources:
+            requests:
+              cpu: 100m

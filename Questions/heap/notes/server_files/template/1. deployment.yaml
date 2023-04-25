@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes
+  labels:
+    app: notes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes
+  template:
+    metadata:
+      labels:
+        app: notes
+    spec:
+      containers:
+        - name: notes-challenge
+          image: docker.io/cookie303/notes:latest
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: notes-port
+          resources:
+            requests:
+              cpu: 100m

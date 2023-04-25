@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: winme
+  labels:
+    app: winme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: winme
+  template:
+    metadata:
+      labels:
+        app: winme
+    spec:
+      containers:
+        - name: winme-challenge
+          image: docker.io/cookie303/winme:1
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: winme-port
+          resources:
+            requests:
+              cpu: 100m

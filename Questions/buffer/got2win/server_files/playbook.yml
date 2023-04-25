@@ -1,0 +1,18 @@
+---
+- name: Build and run Docker container
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Build Docker image
+    command: docker build -t got2win .
+    args:
+      chdir: .
+
+  - name: Run Docker container
+    command: docker run -d --name got2win got2win
+
+  - name: Execute command inside container
+    command: docker exec got2win /bin/bash -c "echo 'Hello World!'"
+
+  - name: Enter interactive shell inside container
+    command: docker exec -it got2win /bin/bash

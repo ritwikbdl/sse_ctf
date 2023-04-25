@@ -1,0 +1,15 @@
+PATCH http://13.126.197.34/api/v1/flags/1 HTTP/1.1
+Authorization: Token feb566432a58da3ac62227579b5d90e128efe527e7dc41f7e3add57e61149a50
+Content-Type: application/json 
+
+{
+    "content": "sseCTF{4_GoOd_k3Y_Op3n5_M4ny_l0Ck5_test}",
+    "id": 1
+
+}
+
+###
+
+GET http://13.126.197.34/api/v1/flags HTTP/1.1
+Authorization: Token feb566432a58da3ac62227579b5d90e128efe527e7dc41f7e3add57e61149a50
+Content-Type: application/json 

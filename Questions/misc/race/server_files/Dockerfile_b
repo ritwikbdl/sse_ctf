@@ -1,0 +1,44 @@
+# docker build -t my-ubuntu-image .
+# docker run -d -p 2222:22 --name my-ubuntu-container my-ubuntu-image
+
+
+FROM ubuntu:20.04
+
+# Install essential tools
+RUN apt update && apt upgrade
+RUN apt install -y \
+        vim \
+        gcc \
+        nano \
+        tmux
+
+# Set up SSH server
+#RUN mkdir /var/run/sshd && \
+#    echo 'root:r@ndomCh33kyBum' | chpasswd && \
+#    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+#    echo 'UseDNS no' >> /etc/ssh/sshd_config
+
+# Create a new user with sudo privileges
+RUN useradd -m ctf && \
+    echo 'ctf:ctf' | chpasswd && \
+    chsh -s /bin/bash ctf 
+
+# Copy read.c, compile and set permissions
+COPY read.c /home/ctf/read.c
+RUN gcc /home/ctf/read.c -o /home/ctf/read && \
+    chmod +s /home/ctf/read
+
+
+
+COPY flag.txt /home/ctf/flag.txt
+RUN chown root:root /home/ctf/flag.txt && chmod 400 /home/ctf/flag.txt
+
+WORKDIR /home/ctf
+
+
+# Expose SSH port and start SSH server
+#EXPOSE 22
+#CMD ["/usr/sbin/sshd", "-D"]
+
+
+

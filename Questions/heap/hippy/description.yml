@@ -1,0 +1,8 @@
+name: Dumped
+author: Sandip
+original_ctf: SSECTF
+year: 2022
+description: >-
+  "You came to know about the dumped flag. Go ahead to search the dumpster to find the flag. To get the contents of the trash, you need to push the bin to its limits."
+base64_flag: 'RXNDVEZ7MSNfPV80bjB0IzNyfQo='
+flag_format: 'EsCTF{.*}'

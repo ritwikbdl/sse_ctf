@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hippy
+  labels:
+    app: hippy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hippy
+  template:
+    metadata:
+      labels:
+        app: hippy
+    spec:
+      containers:
+        - name: hippy-challenge
+          image: docker.io/cookie303/hippy:latest #docker.io/cookie303/a 5:2
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: hippy-port
+          resources:
+            requests:
+              cpu: 100m

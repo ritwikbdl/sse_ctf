@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dumped
+  labels:
+    app: dumped
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dumped
+  template:
+    metadata:
+      labels:
+        app: dumped
+    spec:
+      containers:
+        - name: dumped-challenge
+          image: docker.io/cookie303/dumped:latest #docker.io/cookie303/a 5:2
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: dumped-port
+          resources:
+            requests:
+              cpu: 100m
