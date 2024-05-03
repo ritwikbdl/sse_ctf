@@ -55,4 +55,4 @@ with open("bin", "rb") as f:
     )
     output = s.communicate()
     print(output)
-    #subprocess.run(["rm", path])
+    subprocess.run(["rm", path])

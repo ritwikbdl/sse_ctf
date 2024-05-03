@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
-char flag[]="Your flag is: SSECTF{r3pl4c1ng_byt35_l1k3_4_pr0}";
+char flag[]="Your flag is: SSECTF{ch@ng1ng_byt35_1s_5up3r_3z}";
 
 void ignore_me_init_buffering() {
 	setvbuf(stdout, NULL, _IONBF, 0);

@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  escapeme:
+    build: .
+    privileged: true
+    ports:
+      - 5252:5252

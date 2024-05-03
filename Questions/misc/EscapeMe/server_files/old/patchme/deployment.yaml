@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patchme
+  labels:
+    app: patchme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patchme
+  template:
+    metadata:
+      labels:
+        app: patchme
+    spec:
+      containers:
+        - name: patchme-challenge
+          image: docker.io/cookie303/patchme:latest
+          imagePullPolicy: Always
+          securityContext:
+            readOnlyRootFilesystem: true
+          ports:
+            - containerPort: 1024
+              protocol: TCP
+              name: patchme-port
+          resources:
+            requests:
+              cpu: 100m

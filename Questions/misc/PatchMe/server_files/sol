@@ -1,0 +1,9 @@
+#first change at 
+0x0000000000001272 <+20>:    75 11   jne    0x1285 <start+39>
+#change jne to je 75 to 74 
+01272 -> 72
+# then change offset + rip that goes to print
+new offset = 0x2e0a
+#change 0d a5 to 2e 0a 
+0x1277 -> 0x0a
+0x1278 -> 0x2e

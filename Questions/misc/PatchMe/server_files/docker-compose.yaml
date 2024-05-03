@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    image: patchme
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1024:1024" # Exposing port 1024
+    user: "1000:1000" # Setting the UID and GID of the user inside the container
+    ##stdin_open: true # Keeping STDIN open even if not attached
+    #tty: true # Allocating a pseudo-TTY

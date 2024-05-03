@@ -1,0 +1,55 @@
+# Use a base image with necessary tools and libraries
+FROM ubuntu:noble-20240225
+
+# Install necessary packages
+RUN apt-get update \
+    && apt-get install -y python3 netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create directories for the chroot jail
+RUN mkdir -p /chroot/jail/usr/bin \
+    && mkdir -p /chroot/jail/bin \
+    && mkdir -p /chroot/jail/lib \
+    && mkdir -p /chroot/jail/lib64 \
+    && mkdir -p /chroot/jail/usr/lib \
+    && mkdir -p /chroot/jail/usr/share
+
+# Copy your binary and any required files into the chroot directory
+COPY ynetd /usr/sbin/
+COPY test.py /chroot/jail/
+COPY flag /chroot/jail/
+
+# Copy cat and ls binaries into chroot jail bin directory
+RUN cp /bin/cat /bin/ls /chroot/jail/bin/
+
+# Copy Python binary and required libraries into chroot jail
+RUN cp /usr/bin/python3 /chroot/jail/usr/bin/python3 \
+    && cp /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/liblzma.so.5 /lib/x86_64-linux-gnu/libm.so.6 /lib/x86_64-linux-gnu/libc.so.6 /chroot/jail/lib/ \
+    && cp /lib64/ld-linux-x86-64.so.2 /chroot/jail/lib64/
+
+# Install libc6 package to provide the necessary libc library
+RUN apt-get update \
+    && apt-get install -y libc6 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy additional required libraries by inspecting Python binary dependencies
+RUN apt-get update \
+    && apt-get install -y binutils \
+    && ldd /usr/bin/python3 | grep "=>" | awk '{print $3}' | xargs -I {} cp -L {} /chroot/jail/lib/ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python related directories and files into the chroot jail
+RUN cp -R /usr/lib/py* /chroot/jail/usr/lib/ \
+    && cp -R /usr/share/py* /chroot/jail/usr/share/ \
+    && find /usr/lib/python3.12/ -name '*.so' -exec cp {} /chroot/jail/usr/lib/ \;
+
+# Create a shell script to start chroot and execute test.py
+RUN echo '#!/bin/sh' > /usr/local/bin/start_chroot.sh \
+    && echo 'chroot /chroot/jail /usr/bin/python3 /test.py' >> /usr/local/bin/start_chroot.sh \
+    && chmod +x /usr/local/bin/start_chroot.sh
+
+# Expose the port used by ynetd
+EXPOSE 5252
+
+# Start ynetd when the container starts, running the shell script
+CMD ["/usr/sbin/ynetd", "-p", "5252", "-a", "0.0.0.0", "/usr/local/bin/start_chroot.sh"]
