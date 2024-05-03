@@ -1,0 +1,8 @@
+version: '2.4'
+services:
+  winme:
+    build: .
+    privileged: true
+    ports:
+      - 6969:6969
+

@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  raceme:
+    build: .
+    ports:
+      - 6767:6767
+    privileged: true

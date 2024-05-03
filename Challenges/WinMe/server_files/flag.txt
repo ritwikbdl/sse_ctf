@@ -1,0 +1,1 @@
+SSECTF{FMT_STR_R3T_2_LIBC_4nd_T3SL4_4ut0p1lot_3ng1n3_4r3_both_try1ng_t0_t4k3_c0ntr0l}

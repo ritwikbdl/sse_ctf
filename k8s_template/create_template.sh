@@ -1,9 +1,9 @@
-name="catchme"
+name=$1
 # external port
-xport=8888
+xport=$2
 # container port
-cport=1024
-folder=$1
+cport=$3
+folder=$4
 
 mkdir -p $folder
 
@@ -12,9 +12,9 @@ sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$cport/$cport/g" '1. deployment.ya
 
 sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '2. service.yaml' > $folder/service.yaml
 
-sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '3. ingress.yaml' > $folder/ingress.yaml
+#sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '3. ingress.yaml' > $folder/ingress.yaml
 
-sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '4. daemonset.yaml' > $folder/daemonset.yaml
+#sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '4. daemonset.yaml' > $folder/daemonset.yaml
 
 sed "s/\$name/$name/g; s/\$cport/$cport/g; s/\$xport/$xport/g" '1. deployment.yaml' > $folder/deployment.yaml
 

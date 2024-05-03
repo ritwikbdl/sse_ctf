@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  whatformat:
+    build: .
+    ports:
+      - 12321:5000
+    privileged: true

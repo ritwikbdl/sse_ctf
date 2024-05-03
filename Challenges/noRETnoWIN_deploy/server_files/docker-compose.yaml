@@ -1,0 +1,8 @@
+version: '6.9'
+services:
+  noretnowin:
+    build: .
+    privileged: true
+    restart: always
+    ports:
+      - 7000:7000

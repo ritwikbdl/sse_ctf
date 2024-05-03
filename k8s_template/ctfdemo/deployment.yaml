@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctfdemo
+  labels:
+    app: ctfdemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ctfdemo
+  template:
+    metadata:
+      labels:
+        app: ctfdemo
+    spec:
+      containers:
+        - name: ctfdemo-challenge
+          image: sse-heap-q2
+          imagePullPolicy: Never
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 9999
+              protocol: TCP
+              name: ctfdemo-port
+          resources:
+            requests:
+              cpu: 100m

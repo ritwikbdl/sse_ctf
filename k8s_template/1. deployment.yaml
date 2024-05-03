@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: $name-challenge
-          image: docker.io/cookie303/$name:latest
-          imagePullPolicy: Always
+          image: sse-heap-q2
+          imagePullPolicy: Never
           securityContext:
-            readOnlyRootFilesystem: true
+            privileged: true
           ports:
             - containerPort: $cport
               protocol: TCP

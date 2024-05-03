@@ -1,0 +1,23 @@
+# use the jail base image
+FROM pwn.red/jail
+
+# copy the root files from any Docker image
+COPY --from=ubuntu:18.04 / /srv
+
+# copy vuln bin
+COPY ./bin/ /bin
+
+# env variables
+ENV JAIL_TIME=20
+ENV JAIL_CONNS=200
+ENV JAIL_CONNS_PER_IP=5
+ENV JAIL_PIDS=100
+ENV JAIL_MEM=20M
+ENV JAIL_CPU=2000
+ENV JAIL_PORT=9999
+
+# setup the binary to run
+RUN mkdir /srv/app
+COPY ./bin/sectok_libc /srv/app/run
+COPY ./bin/flag /srv/app/flag
+
